@@ -9,7 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ToggleButton;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.Calendar;
+
+public class MainActivity extends AppCompatActivity implements DatePickerDialog.SaveDateListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,4 +69,8 @@ public class MainActivity extends AppCompatActivity {
         buttonChange.setEnabled(enabled);
     }
 
+    @Override
+    public void didFinishDatePickerDialog(Calendar selectedDate) {
+
+    }
 }
