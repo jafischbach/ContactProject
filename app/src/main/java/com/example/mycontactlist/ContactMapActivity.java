@@ -7,12 +7,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class ContactListActivity extends AppCompatActivity {
+public class ContactMapActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contact_list);
+        setContentView(R.layout.activity_contact_map);
 
         initListButton();
         initSettingsButton();
@@ -24,7 +24,7 @@ public class ContactListActivity extends AppCompatActivity {
         listButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ContactListActivity.this, ContactListActivity.class);
+                Intent intent = new Intent(ContactMapActivity.this, ContactListActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
@@ -36,7 +36,7 @@ public class ContactListActivity extends AppCompatActivity {
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ContactListActivity.this, ContactSettingsActivity.class);
+                Intent intent = new Intent(ContactMapActivity.this, ContactSettingsActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
@@ -48,7 +48,7 @@ public class ContactListActivity extends AppCompatActivity {
         mapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ContactListActivity.this, ContactMapActivity.class);
+                Intent intent = new Intent(ContactMapActivity.this, ContactMapActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
