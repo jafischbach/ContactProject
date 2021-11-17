@@ -23,6 +23,7 @@ public class ContactSettingsActivity extends AppCompatActivity {
         initMapButton();
         initSettings();
         initRadioGroupSortBy();
+        initRadioGroupSortOrder();
     }
 
     private void initListButton() {
@@ -106,6 +107,27 @@ public class ContactSettingsActivity extends AppCompatActivity {
                     SharedPreferences sp = getSharedPreferences("MyContactListPreferences", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sp.edit();
                     editor.putString("sortfield", "birthday");
+                    editor.apply();
+                }
+            }
+        });
+    }
+
+    private void initRadioGroupSortOrder() {
+        RadioGroup rg = findViewById(R.id.radioGroupSortOrder);
+        RadioButton rbAscending = findViewById(R.id.radioAscending);
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if(rbAscending.isChecked()) {
+                    SharedPreferences sp = getSharedPreferences("MyContactListPreferences", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.putString("sortorder", "ascending");
+                    editor.apply();
+                } else {
+                    SharedPreferences sp = getSharedPreferences("MyContactListPreferences", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.putString("sortorder", "descending");
                     editor.apply();
                 }
             }

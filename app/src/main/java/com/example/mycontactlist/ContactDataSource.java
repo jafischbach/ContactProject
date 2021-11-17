@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+
 public class ContactDataSource {
 
     private SQLiteDatabase database;
@@ -76,6 +78,61 @@ public class ContactDataSource {
 
         }
         return lastID;
+    }
+
+    public ArrayList<String> getContactNames() {
+        ArrayList<String> names = new ArrayList<String>();
+        try {
+            String query = "Select contactname from contact";
+            Cursor cursor = database.rawQuery(query, null);
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()) {
+                names.add(cursor.getString(0));
+                cursor.moveToNext();
+            }
+            cursor.close();
+        } catch (Exception e) {
+
+        }
+        return names;
+    }
+
+    public ArrayList<Contact> getContacts() {
+        ArrayList<Contact> contacts = new ArrayList<Contact>();
+        try {
+            String query = "Select * from contact";
+            Cursor cursor = database.rawQuery(query, null);
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()) {
+                Contact c = new Contact();
+                c.setName(cursor.getString(1));
+                c.setAddress(cursor.getString(2));
+                c.setCity(cursor.getString(3));
+                contacts.add(c);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        } catch (Exception e) {
+
+        }
+        return contacts;
+    }
+
+    public Contact getContact(int id) {
+        Contact c = new Contact();
+        try {
+            String query = "Select * from contact where _id="+id;
+            Cursor cursor = database.rawQuery(query, null);
+            cursor.moveToFirst();
+            c.setContactID(id);
+            c.setName(cursor.getString(1));
+            c.setAddress(cursor.getString(2));
+            c.setCity(cursor.getString(3));
+            cursor.close();
+        } catch (Exception e) {
+
+        }
+        return c;
     }
 
 }

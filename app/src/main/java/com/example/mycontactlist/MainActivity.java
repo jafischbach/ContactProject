@@ -13,7 +13,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
+
+import org.w3c.dom.Text;
 
 import java.util.Calendar;
 
@@ -35,6 +38,28 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         initTextChangeEvents();
         initSaveButton();
         setForEditing(false);
+    }
+
+    public void onResume() {
+        super.onResume();
+        Intent intent = getIntent();
+        int position = intent.getIntExtra("position", -1);
+        if(position != -1) {
+            ContactDataSource ds = new ContactDataSource(this);
+            try {
+                ds.open();
+                currentContact = ds.getContact(position+1);
+                ds.close();
+                EditText nameEdit = findViewById(R.id.editContact);
+                nameEdit.setText(currentContact.getName());
+                EditText addressEdit = findViewById(R.id.editAddress);
+                addressEdit.setText(currentContact.getAddress());
+                EditText cityEdit = findViewById(R.id.editCity);
+                cityEdit.setText(currentContact.getCity());
+            } catch (Exception e) {
+                Toast.makeText(this, "Error accessing contact", Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     private void initListButton() {
@@ -111,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             @Override
             public void afterTextChanged(Editable editable) {
                 currentContact.setName(nameEdit.getText().toString());
+                currentContact.setContactID(-1);
             }
         });
         EditText addressEdit = findViewById(R.id.editAddress);
